@@ -1,3 +1,6 @@
+@import url("./_banner.css");
+@import url("./_codesample.css");
+
 body {
   background-color: #dbded8;
   margin: 0;
@@ -5,62 +8,3 @@ body {
   height: 100vh;
 }
 
-.banner {
-  height: 100%;
-  background: url('../res/myst-y-mountains.png');
-  background-size: cover;
-  background-color: #dbded8;
-  color: #52656b;
-
-  font-family: "rooney-web", serif;
-}
-
-.banner__content {
-  width: 940px;
-  margin: auto;
-  padding-top: 12px;
-}
-
-
-.banner__topbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  border-bottom: 1px solid #52656b;
-}
-
-.banner__title {
-  flex: 1 0 200px;
-  padding: 0;
-  margin: 0 0 12px 0;
-  font-weight: normal;
-  font-size: 64px;
-  line-height: 1em;
-}
-
-.banner__nav {
-  text-align: right;
-  flex: 1 1 auto;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-.banner__link {
-  display: inline-block;
-  padding: 18px 9px;
-  font-size: 24px;
-  text-decoration: none;
-  color: #52656b;
-}
-
-.banner__link:hover {
-  color: #374448;
-  text-decoration: underline;
-}
-
-
-.banner__code-sample {
-  margin-top: 18px;
-  font-size: 18px;
-}

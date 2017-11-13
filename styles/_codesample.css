@@ -1,0 +1,13 @@
+.code-sample {
+  background: rgba(219, 222, 216, 0.7);
+  padding: 9px 18px;
+  line-height: 1.3em;
+  white-space: pre;
+
+  border: 1px solid rgba(191, 196, 186, 0.7);
+  border-radius: 4px;
+}
+
+.code-sample--compressed {
+  display: inline-block;
+}
