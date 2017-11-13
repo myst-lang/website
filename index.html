@@ -11,40 +11,37 @@
 
   <body>
     <div class="banner">
-
       <div class="banner__content">
-        <ul class="banner__nav">
-          <a href="https://myst-lang.org/get-started" class="banner__link" >
-            <li>Docs</li>
-          </a>
-          <a href="http://discord.myst-lang.org" class="banner__link" >
-            <li>Community</li>
-          </a>
-          <a href="https://myst-lang.org/get-started" class="banner__link" >
-            <li>Get Started</li>
-          </a>
-          <a href="https://github.com/myst-lang/myst" class="banner__link" >
-            <li>GitHub</li>
-          </a>
-        </ul>
-
-
-        <div class="banner__hero">
+        <div class="banner__topbar">
           <h1 class="banner__title">Myst</h1>
-          <p class="banner__tagline">A structured, dynamic, general-purpose language.</p>
 
-          <pre class="banner__code-sample">
-            <code>
-              def fib(0); 1; end
-              def fib(1); 1; end
-              def fib(n : Integer)
-                fib(n-1) + fib(n-2)
-              end
-
-              IO.puts(fib(8)) #=> 21
-            </code>
-          </pre>
+          <ul class="banner__nav">
+            <a href="https://myst-lang.org/get-started" class="banner__link" >
+              <li>Docs</li>
+            </a>
+            <a href="https://myst-lang.org/get-started" class="banner__link" >
+              <li>Get Started</li>
+            </a>
+            <a href="http://discord.myst-lang.org" class="banner__link" >
+              <li>Community</li>
+            </a>
+            <a href="https://github.com/myst-lang/myst" class="banner__link" >
+              <li>GitHub</li>
+            </a>
+          </ul>
         </div>
+
+        <pre class="banner__code-sample">
+          <code>
+            def fib(0); 1; end
+            def fib(1); 1; end
+            def fib(n : Integer)
+              fib(n-1) + fib(n-2)
+            end
+
+            IO.puts(fib(8)) #=> 21
+          </code>
+        </pre>
       </div>
     </div>
   </body>

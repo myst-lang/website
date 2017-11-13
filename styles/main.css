@@ -21,34 +21,44 @@ body {
   padding-top: 12px;
 }
 
+
+.banner__topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 1px solid #52656b;
+}
+
+.banner__title {
+  flex: 1 0 200px;
+  padding: 0;
+  margin: 0 0 12px 0;
+  font-weight: normal;
+  font-size: 64px;
+  line-height: 1em;
+}
+
 .banner__nav {
+  text-align: right;
+  flex: 1 1 auto;
   list-style-type: none;
-  float: right;
+  margin: 0;
+  padding: 0;
 }
 
 .banner__link {
   display: inline-block;
-  margin-left: 18px;
-  font-size: 18px;
+  padding: 18px 9px;
+  font-size: 24px;
   text-decoration: none;
   color: #52656b;
 }
 
 .banner__link:hover {
   color: #374448;
+  text-decoration: underline;
 }
 
-.banner__title {
-  padding: 0;
-  margin: 0 0 12px 0;
-  font-weight: normal;
-  font-size: 100px;
-}
-
-.banner__tagline {
-  font-size: 24px;
-  margin: 0;
-}
 
 .banner__code-sample {
   margin-top: 18px;
