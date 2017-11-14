@@ -1,5 +1,5 @@
-@import url("./_banner.css");
-@import url("./_codesample.css");
+@import url("./banner.css");
+@import url("./codesample.css");
 
 * {
   box-sizing: border-box;
