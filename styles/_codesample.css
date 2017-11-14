@@ -8,6 +8,6 @@
   border-radius: 4px;
 }
 
-.code-sample--compressed {
-  display: inline-block;
+.code-sample--no-margin {
+  margin: 0;
 }

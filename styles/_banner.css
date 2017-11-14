@@ -1,10 +1,5 @@
 .banner {
-  height: 100%;
-  background: url('../res/myst-y-mountains.png');
-  background-size: cover;
-  background-color: #dbded8;
   color: #52656b;
-
   font-family: "rooney-web", serif;
 }
 
@@ -44,15 +39,30 @@
   padding: 18px 9px;
   font-size: 24px;
   text-decoration: none;
+  border: none;
   color: #52656b;
 }
 
 .banner__link:hover {
   color: #374448;
   text-decoration: underline;
+  border: none;
 }
 
 
+.banner__hero {
+  padding: 36px;
+  display: flex;
+}
+
+.banner__tagline {
+  flex: 1 0 0;
+  font-size: 24px;
+  line-height: 1.5em;
+  margin-top: 24px;
+}
+
 .banner__code-sample {
+  flex: 0 0 400px;
   font-size: 18px;
 }
