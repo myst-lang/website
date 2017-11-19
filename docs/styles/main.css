@@ -53,3 +53,7 @@ a:hover {
   border-bottom: 1px solid #52656b;
 }
 
+
+hr {
+  border: 2px solid rgba(0,0,0,0.1);
+}
