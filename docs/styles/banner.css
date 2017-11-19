@@ -1,6 +1,7 @@
 .banner {
   color: #52656b;
   font-family: "rooney-web", serif;
+  margin-bottom: 12px;
 }
 
 .banner__content {

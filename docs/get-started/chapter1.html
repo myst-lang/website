@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>The Myst Programming Language</title>
+<script src='https://use.typekit.net/qgo3knx.js'></script>
+<script>
+  try{Typekit.load({ async: false });}catch(e){}
+</script>
+<link href='../styles/main.css' rel='stylesheet'>
+</head>
+<body>
+<div class='banner'>
+<div class='banner__content'>
+<div class='banner__topbar'>
+<h1 class='banner__title'>Myst</h1>
+<ul class='banner__nav'>
+<a class='banner__link' href='#'>
+<li>Docs</li>
+</a>
+<a class='banner__link' href='/get-started'>
+<li>Get Started</li>
+</a>
+<a class='banner__link' href='http://discord.myst-lang.org'>
+<li>Community</li>
+</a>
+<a class='banner__link' href='https://github.com/myst-lang/myst'>
+<li>GitHub</li>
+</a>
+</ul>
+</div>
+</div>
+</div>
+<main>
+<h1 id="chapter-1-values-and-variables">Chapter 1: Values and Variables</h1>
+
+<h2 id="values">Values</h2>
+
+<h3 id="primitives">Primitives</h3>
+
+<p>Literal values: <code>nil</code>, <code>false</code>, <code>true</code>, <code>1</code>, <code>1.0</code>, <code>"hello"</code>, <code>:hi</code>.</p>
+
+<h3 id="collections">Collections</h3>
+
+<p><code>[1, 2, 3]</code>, <code>{a: 1, b: 2}</code>.</p>
+
+<h3 id="user-defined-types">User-defined types</h3>
+
+<p>Covered later.</p>
+
+<h2 id="variables">Variables</h2>
+
+<p>Variables store values. Any value can be assigned to any variable at any time.</p>
+
+<h3 id="locals">Locals</h3>
+
+<p>Local variables start with a lowercase alphabetic character and are written in <code>snake_case</code>.</p>
+
+<h3 id="underscores">Underscores</h3>
+
+<p>Underscores are local variables that start with an ASCII underscore character, <code>_</code>.</p>
+
+<h3 id="constants">Constants</h3>
+
+<p>Constants start with uppercase alphabetic characters, and are written either in <code>UpperCamelCase</code>, or <code>SCREAMING_CASE</code>.</p>
+
+<h2 id="assignments">Assignments</h2>
+
+<p>Variables are created by assigning values to them. They can be re-assigned to later on to change their value</p>
+
+<div class="language-myst highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>x = 1 #=&gt; 1&#x000A;<span class="line-numbers"><a href="#n2" name="n2">2</a></span>x     #=&gt; 1&#x000A;<span class="line-numbers"><a href="#n3" name="n3">3</a></span>x = 2 #=&gt; 2&#x000A;<span class="line-numbers"><a href="#n4" name="n4">4</a></span>x     #=&gt; 2</pre></div>
+</div>
+</div>
+</main>
+</body>
+</html>

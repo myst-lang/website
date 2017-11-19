@@ -1,0 +1,32 @@
+!!!
+%html
+  %head
+    %title The Myst Programming Language
+
+    %script(src="https://use.typekit.net/qgo3knx.js")
+    :javascript
+      try{Typekit.load({ async: false });}catch(e){}
+
+    %link(rel="stylesheet" href="../styles/main.css")
+
+  %body
+    %div.banner
+      %div.banner__content
+        %div.banner__topbar
+          %h1.banner__title Myst
+
+          %ul.banner__nav
+            %a.banner__link(href="#")
+              %li Docs
+            %a.banner__link(href="/get-started")
+              %li Get Started
+            %a.banner__link(href="http://discord.myst-lang.org")
+              %li Community
+            %a.banner__link(href="https://github.com/myst-lang/myst")
+              %li GitHub
+
+    %main
+      :markdown
+        # Chapter 1.1: Value Interpolations
+
+        Use `<>` to interpolate the result of any expression into any other expression.
