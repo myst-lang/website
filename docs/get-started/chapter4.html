@@ -31,11 +31,12 @@
 </div>
 </div>
 <main>
-<h1 id="chapter-4-pattern-matching">Chapter 4: Pattern Matching</h1>
+
+<h1>Chapter 4: Pattern Matching</h1>
 
 <p>Pattern matching is a powerful method of making assertions on values, and decomposing them into smaller parts to pluck out what is important.</p>
 
-<h2 id="match-operator">Match operator</h2>
+<h2>Match operator</h2>
 
 <p>Myst provides the "match" operator, <code>=:</code>, to perform pattern matching anywhere. When a match fails, an error is raised and execution is stopped to handle the error.</p>
 
@@ -46,12 +47,12 @@
 </div>
 </div>
 
-<h2 id="splat-collectors">Splat collectors</h2>
+<h2>Splat collectors</h2>
 
 <p>When pattern matching with lists, a common operation is plucking a single element out of the list. The normal way of doing this in most languages is to get the list, then access the first element separately:</p>
 
 <div class="language-ruby highlighter-coderay"><div class="CodeRay">
-  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>list = method_that_returns_a_list&#x000A;<span class="line-numbers"><a href="#n2" name="n2">2</a></span>element = list[<span style="color:#00D">0</span>]&#x000A;<span class="line-numbers"><a href="#n3" name="n3">3</a></span><span style="color:#777"># Or, in one line:</span>&#x000A;<span class="line-numbers"><a href="#n4" name="n4">4</a></span>element = method_that_returns_a_list[<span style="color:#00D">0</span>]</pre></div>
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>list = method_that_returns_a_list&#x000A;<span class="line-numbers"><a href="#n2" name="n2">2</a></span>element = list[<span class="integer">0</span>]&#x000A;<span class="line-numbers"><a href="#n3" name="n3">3</a></span><span class="comment"># Or, in one line:</span>&#x000A;<span class="line-numbers"><a href="#n4" name="n4">4</a></span>element = method_that_returns_a_list[<span class="integer">0</span>]</pre></div>
 </div>
 </div>
 
@@ -91,7 +92,7 @@
 
 <p>This is great for more functional-style programming, where lists are essentially treated as "cons cells" (like linked lists).</p>
 
-<h2 id="matching-literal-values">Matching literal values</h2>
+<h2>Matching literal values</h2>
 
 <p>While using pattern matching for decomposition is useful, the most common use case is to assert that a <em>value</em> matches a specific <em>pattern</em> (hence the name). To do this, the pattern can provide literal values that the right hand side will be expected to match.</p>
 
@@ -102,7 +103,7 @@
 </div>
 </div>
 
-<h2 id="matching-types">Matching types</h2>
+<h2>Matching types</h2>
 
 <p>Another form of pattern matching is checking the type of a value. Just like how literals can be used in patterns, specifying a type will check that the value at that position is of the given type.</p>
 

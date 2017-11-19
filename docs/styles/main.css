@@ -53,11 +53,3 @@ a:hover {
   border-bottom: 1px solid #52656b;
 }
 
-[class*=language-] {
-  background: rgba(0,0,0,0.04);
-  padding: 6px 24px;
-}
-
-.CodeRay .line-numbers {
-  margin-right: 24px;
-}

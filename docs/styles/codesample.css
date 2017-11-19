@@ -11,3 +11,19 @@
 .code-sample--no-margin {
   margin: 0;
 }
+
+
+[class*=language-] {
+  background: rgba(0,0,0,0.04);
+  padding: 6px 24px;
+}
+
+.CodeRay .line-numbers {
+  margin-right: 24px;
+}
+
+
+div.code .comment { color: #888f91; }
+div.code .keyword { color: #859900; }
+div.code .string  { color: #37a592; }
+div.code .integer { color: #7b64b4; }
