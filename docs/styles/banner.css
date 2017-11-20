@@ -68,3 +68,7 @@
   flex: 0 0 400px;
   font-size: 18px;
 }
+
+.banner__code-sample code {
+  background: none;
+}

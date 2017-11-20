@@ -30,7 +30,6 @@ main {
   border-radius: 4px;
 }
 
-main p,
 main h1,
 main h2,
 main h3,
@@ -38,6 +37,12 @@ main h4,
 main h5,
 main h6 {
   padding: 0 24px;
+  color: #52656b;
+}
+
+main p {
+  padding: 0 24px;
+  color: #647b82;
 }
 
 a {

@@ -179,34 +179,177 @@ Myst
 
 <h2>Variables</h2>
 
-<p>IGNORE THIS STUFF :)</p>
+<p>Variables are names that store values. For the most part, any value can be assigned to any variable at any time.</p>
 
-<p>Variables store values. Any value can be assigned to any variable at any time.</p>
+<p>All variable names in Myst are <em>identifiers</em>. An identifier is any series of letters, numbers, and/or underscores, with the restriction that the first character can not be a number. The casing and structure of the name determines it's <em>kind</em>.</p>
+
+<p>There are three main kinds of variables in Myst - Locals, Underscores, and Constants - each with a specific purpose and use case.</p>
 
 <h3>Locals</h3>
 
-<p>Local variables start with a lowercase alphabetic character and are written in <code>snake_case</code>.</p>
+<p>Local variables start with a lowercase alphabetic character and are generally written in <code>snake_case</code>. Locals can be freely assigned and referenced any number of times, and are generally used to hold temporary data.</p>
+
+<p>For example, when doing a complex calculation, intermediate results are generally held in local variables to make the final calculation more clear.</p>
+
+<p>Local variables are tied to the <em>lexical scope</em> that they are created in. In other words, variables created within a block of code will be destroyed once the block of code is finished running.</p>
+
+<p>All of the following are examples of valid local variable names:</p>
+
+<div class="language-myst highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>x&#x000A;<span class="line-numbers"><a href="#n2" name="n2">2</a></span>a&#x000A;<span class="line-numbers"><a href="#n3" name="n3">3</a></span>something_longer&#x000A;<span class="line-numbers"><a href="#n4" name="n4">4</a></span>number1&#x000A;<span class="line-numbers"><strong><a href="#n5" name="n5">5</a></strong></span>num_456</pre></div>
+</div>
+</div>
 
 <h3>Underscores</h3>
 
 <p>Underscores are local variables that start with an ASCII underscore character, <code>_</code>.</p>
 
+<p>Just like locals, underscore variables can be assigned to and referenced any number of times. However, referencing an underscore variable will emit a warning.</p>
+
+<p>Generally, underscores are used to indicate that a variable is known to exist, but should not be used in the code. We'll see examples of how this is helpful later on, namely with function parameters and pattern matching.</p>
+
+<p>In some languages, there is <a href="http://po-ru.com/diary/rubys-magic-underscore/">a pattern</a> of using a single underscore character to indicate that a value is unwanted. Some languages even treat the single underscore specially.</p>
+
+<p>Other languages, Myst included, treat all underscore variables equally. As such, it's often useful to provide a more descriptive name for the underscore variable in case it may become useful in the future.</p>
+
+<p>For example, this code is entirely valid:</p>
+
+<div class="language-myst highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>[first_name, _, _, _] = some_method</pre></div>
+</div>
+</div>
+
+<p>We'll cover exactly what this means later on, but it's obvious that there are three values we don't <em>currently</em> care about. The issue is that without looking at the definition of <code>some_method</code>, it's hard to tell <em>what</em> those values are, and if they could be useful in the code that follows it.</p>
+
+<p>A better version of the above would be something like this:</p>
+
+<div class="language-myst highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>[first, _last, _age, _city] = some_method</pre></div>
+</div>
+</div>
+
+<p>Here, we can see what the other three values are, but they are still marked as undercsore variables, meaning we don't currently have a use for them.</p>
+
 <h3>Constants</h3>
 
-<p>Constants start with uppercase alphabetic characters, and are written either in <code>UpperCamelCase</code>, or <code>SCREAMING_CASE</code>.</p>
+<p>Constants start with uppercase alphabetic characters, and are written either in <code>UpperCamelCase</code>, or <code>SCREAMING_CASE</code>. Constants also have different semantics than underscores and local variables.</p>
+
+<p>A constant variable can only be assigned once. Assigning to a constant more than once will raise an error. As such, constants are generally used to hold values that are not expected to change very often. For example, the seasons of a year:</p>
+
+<div class="language-myst highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>SEASONS = [&quot;spring&quot;, &quot;summer&quot;, &quot;fall&quot;, &quot;winter&quot;]</pre></div>
+</div>
+</div>
+
+<p>Note that while the constant <em>itself</em> cannot be reassigned, its value may still be changed by other operations. For example, a new season could be added just by adding to the end of the list.</p>
+
+<div class="language-myst highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>SEASONS[4] = &quot;some new season&quot;</pre></div>
+</div>
+</div>
+
+<p>We'll cover more about what this code means later on, but the important part here is that constants can still be modified, even though they can only be assigned once.</p>
+
+<p>The other primary use of constants is to represent types and modules. Earlier in this section, you may have noticed that we always refer to the type of a value with a capital letter at the start. This is to match the name of the type within Myst. Types like <code>Integer</code>, <code>Float</code>, and <code>List</code> are all constants within Myst.</p>
+
+<p>Types and modules will be covered in more detail later on, but know for now that a variable written in <code>UpperCamelCase</code> is generally referring to either a type or a module.</p>
 
 <h2>Assignments</h2>
 
-<p>Variables are created by assigning values to them. They can be re-assigned to later on to change their value</p>
+<p>Assignments are the primary way of creating new variables. All assignments consist of a <em>target</em> (the left side), an assignment operator, and a <em>value</em> (the right side).</p>
+
+<h3>Simple assignments</h3>
+
+<p>Most assignments are technically <em>simple assignments</em>. Myst also has two other kinds of assignments ("match" and "operational") with different semantics.</p>
+
+<p>A simple assignment is made with a variable name (called the <em>target</em>) followed by an equals sign (<code>=</code>) and then some value to be assigned. We've seen this a few times already, but here's a more complete example:</p>
 
 <div class="language-myst highlighter-coderay"><div class="CodeRay">
   <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>x = 1 #=&gt; 1&#x000A;<span class="line-numbers"><a href="#n2" name="n2">2</a></span>x     #=&gt; 1&#x000A;<span class="line-numbers"><a href="#n3" name="n3">3</a></span>x = 2 #=&gt; 2&#x000A;<span class="line-numbers"><a href="#n4" name="n4">4</a></span>x     #=&gt; 2</pre></div>
 </div>
 </div>
 
+<p>The comment on each line shows what the value of <code>x</code> is after the line has finished running.</p>
+
+<h3>Operational assignments</h3>
+
+<p>It's fairly common for an assignment to include the target in the value being assigned. For example, incrementing a variable by one might look somtehing like this:</p>
+
+<div class="language-myst highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>x = x + 1</pre></div>
+</div>
+</div>
+
+<p>Especially with longer variable names, the repetition of the name creates unnecessary noise and often makes the assignment harder to understand at a glance.</p>
+
+<p>To improve this, Myst provides <em>operational assignments</em>, which include the operation being performed as part of the assignment operator. The above example could be written as an operational assignment like this:</p>
+
+<div class="language-myst highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>x += 1</pre></div>
+</div>
+</div>
+
+<p>The full semantics of operational assignments will be covered in the Basic Operations section.</p>
+
+<h3>Match assignments</h3>
+
+<p>Match assignments use the <em>match operator</em> (<code>=:</code>). Match assignments are unique in that an assignment will not necessarily occur. Instead, the "assignment" is an expectation about the <em>value</em> of the assignment, rather than the <em>target</em>.</p>
+
+<p>The full semantics of match assignments will be covered later on in the Pattern Matching section.</p>
+
 <h2>Interpolations</h2>
 
-<p>Use <code>&lt;&gt;</code> to interpolate the result of any expression into any other expression.</p>
+<p>One of the truly unique features of Myst as a language is the ability to interpolate (or <em>inject</em>) any value into another other section of code. An interpolation is creating using angle braces (<code>&lt;</code> and <code>&gt;</code>) with some expression between them.</p>
+
+<p>In the Maps section, we saw that Map keys are almost always Symbols, but that it's possible to use other values for keys as well. One way to do this is to use interpolations:</p>
+
+<div class="language-myst highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>{&#x000A;<span class="line-numbers"><a href="#n2" name="n2">2</a></span>  &lt;true&gt;:       :true,&#x000A;<span class="line-numbers"><a href="#n3" name="n3">3</a></span>  &lt;&quot;hello&quot;&gt;:    :string,&#x000A;<span class="line-numbers"><a href="#n4" name="n4">4</a></span>  &lt;[1, 2, 3]&gt;:  :list&#x000A;<span class="line-numbers"><strong><a href="#n5" name="n5">5</a></strong></span>}</pre></div>
+</div>
+</div>
+
+<p>With this syntax, it's possible to use <em>any</em> value as the key for a Map entry, even Lists or other Maps. But, as mentioned before, using keys other than Symbols will hinder performance.</p>
+
+<p>Interpolations also allow operations within the interpolation for even more powerful behavior. For example, variables can be referenced within an interpolation, and calls to other functions can be made:</p>
+
+<div class="language-myst highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>x = 1&#x000A;<span class="line-numbers"><a href="#n2" name="n2">2</a></span>list = [1, 2, 3]&#x000A;<span class="line-numbers"><a href="#n3" name="n3">3</a></span>{&#x000A;<span class="line-numbers"><a href="#n4" name="n4">4</a></span>  &lt;x&gt;: :one,&#x000A;<span class="line-numbers"><strong><a href="#n5" name="n5">5</a></strong></span>  &lt;list[2]&gt; :three&#x000A;<span class="line-numbers"><a href="#n6" name="n6">6</a></span>}</pre></div>
+</div>
+</div>
+
+<p>In fact, <em>any</em> expression can be used inside of an interpolation, but will require additional parentheses to avoid ambiguity with the less-than and greater-than operations:</p>
+
+<div class="language-myst highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>x = 15&#x000A;<span class="line-numbers"><a href="#n2" name="n2">2</a></span>{&#x000A;<span class="line-numbers"><a href="#n3" name="n3">3</a></span>  &lt;(1 + 2)&gt;: :three,&#x000A;<span class="line-numbers"><a href="#n4" name="n4">4</a></span>  &lt;(x / 3)&gt;: :five&#x000A;<span class="line-numbers"><strong><a href="#n5" name="n5">5</a></strong></span>}</pre></div>
+</div>
+</div>
+
+<p>All of the examples so far have shown interpolations used for creating keys in a Map. While interpolations are allowed anywhere in Myst code, they generally don't have any additional effects that make them useful. For example, these two lines are equivalent:</p>
+
+<div class="language-myst highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>x = &lt;(1 + 2)&gt;&#x000A;<span class="line-numbers"><a href="#n2" name="n2">2</a></span>x = 1 + 2</pre></div>
+</div>
+</div>
+
+<p>Another common use for interpolations is inside of Strings. In addition to evaluating an expression in-place, String interpolations will also convert the result into a String representation before inserting it into the String:</p>
+
+<div class="language-myst highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>name = &quot;John Smith&quot;&#x000A;<span class="line-numbers"><a href="#n2" name="n2">2</a></span>&quot;hello, &lt;(name)&gt;!&quot; #=&gt; &quot;hello, John Smith!&quot;</pre></div>
+</div>
+</div>
+
+<p>Note that string interpolations <em>always</em> require the additional parentheses around the expression being interpolated.</p>
+
+<p>String interpolations are expanded by the language into separate components for the literal String parts and the expressions, then summed together to create the result. The exact expansion would look like this:</p>
+
+<div class="language-myst highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span># Given a string like this:&#x000A;<span class="line-numbers"><a href="#n2" name="n2">2</a></span>&quot;1 + 2 = &lt;(1 + 2)&gt;!&quot;&#x000A;<span class="line-numbers"><a href="#n3" name="n3">3</a></span># The language would interpret it as:&#x000A;<span class="line-numbers"><a href="#n4" name="n4">4</a></span>&quot;1 + 2 = &quot; + (1 + 2).to_s + &quot;!&quot;</pre></div>
+</div>
+</div>
+
+<p>This expansion is <em>semantically</em> the same as what the language ends up doing, but would perform slower than the interpolated version since the language can make some optimizations when the values are interpolated.</p>
+
+<p>The last main use case of interpolations is in pattern matching, which we'll see later on in the Pattern Matching section.</p>
 </main>
 </body>
 </html>

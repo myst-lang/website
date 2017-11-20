@@ -205,27 +205,90 @@
 
         ## Variables
 
-        IGNORE THIS STUFF :)
+        Variables are names that store values. For the most part, any value can be assigned to any variable at any time.
 
-        Variables store values. Any value can be assigned to any variable at any time.
+        All variable names in Myst are _identifiers_. An identifier is any series of letters, numbers, and/or underscores, with the restriction that the first character can not be a number. The casing and structure of the name determines it's _kind_.
+
+        There are three main kinds of variables in Myst - Locals, Underscores, and Constants - each with a specific purpose and use case.
 
         ### Locals
 
-        Local variables start with a lowercase alphabetic character and are written in `snake_case`.
+        Local variables start with a lowercase alphabetic character and are generally written in `snake_case`. Locals can be freely assigned and referenced any number of times, and are generally used to hold temporary data.
+
+        For example, when doing a complex calculation, intermediate results are generally held in local variables to make the final calculation more clear.
+
+        Local variables are tied to the _lexical scope_ that they are created in. In other words, variables created within a block of code will be destroyed once the block of code is finished running.
+
+        All of the following are examples of valid local variable names:
+
+        ~~~myst
+        x
+        a
+        something_longer
+        number1
+        num_456
+        ~~~
 
         ### Underscores
 
         Underscores are local variables that start with an ASCII underscore character, `_`.
 
+        Just like locals, underscore variables can be assigned to and referenced any number of times. However, referencing an underscore variable will emit a warning.
+
+        Generally, underscores are used to indicate that a variable is known to exist, but should not be used in the code. We'll see examples of how this is helpful later on, namely with function parameters and pattern matching.
+
+        In some languages, there is [a pattern](http://po-ru.com/diary/rubys-magic-underscore/) of using a single underscore character to indicate that a value is unwanted. Some languages even treat the single underscore specially.
+
+        Other languages, Myst included, treat all underscore variables equally. As such, it's often useful to provide a more descriptive name for the underscore variable in case it may become useful in the future.
+
+        For example, this code is entirely valid:
+
+        ~~~myst
+        [first_name, _, _, _] = some_method
+        ~~~
+
+        We'll cover exactly what this means later on, but it's obvious that there are three values we don't _currently_ care about. The issue is that without looking at the definition of `some_method`, it's hard to tell _what_ those values are, and if they could be useful in the code that follows it.
+
+        A better version of the above would be something like this:
+
+        ~~~myst
+        [first, _last, _age, _city] = some_method
+        ~~~
+
+        Here, we can see what the other three values are, but they are still marked as undercsore variables, meaning we don't currently have a use for them.
+
         ### Constants
 
-        Constants start with uppercase alphabetic characters, and are written either in `UpperCamelCase`, or `SCREAMING_CASE`.
+        Constants start with uppercase alphabetic characters, and are written either in `UpperCamelCase`, or `SCREAMING_CASE`. Constants also have different semantics than underscores and local variables.
 
+        A constant variable can only be assigned once. Assigning to a constant more than once will raise an error. As such, constants are generally used to hold values that are not expected to change very often. For example, the seasons of a year:
+
+        ~~~myst
+        SEASONS = ["spring", "summer", "fall", "winter"]
+        ~~~
+
+        Note that while the constant _itself_ cannot be reassigned, its value may still be changed by other operations. For example, a new season could be added just by adding to the end of the list.
+
+        ~~~myst
+        SEASONS[4] = "some new season"
+        ~~~
+
+        We'll cover more about what this code means later on, but the important part here is that constants can still be modified, even though they can only be assigned once.
+
+        The other primary use of constants is to represent types and modules. Earlier in this section, you may have noticed that we always refer to the type of a value with a capital letter at the start. This is to match the name of the type within Myst. Types like `Integer`, `Float`, and `List` are all constants within Myst.
+
+        Types and modules will be covered in more detail later on, but know for now that a variable written in `UpperCamelCase` is generally referring to either a type or a module.
 
 
         ## Assignments
 
-        Variables are created by assigning values to them. They can be re-assigned to later on to change their value
+        Assignments are the primary way of creating new variables. All assignments consist of a _target_ (the left side), an assignment operator, and a _value_ (the right side).
+
+        ### Simple assignments
+
+        Most assignments are technically _simple assignments_. Myst also has two other kinds of assignments ("match" and "operational") with different semantics.
+
+        A simple assignment is made with a variable name (called the _target_) followed by an equals sign (`=`) and then some value to be assigned. We've seen this a few times already, but here's a more complete example:
 
         ~~~myst
         x = 1 #=> 1
@@ -234,7 +297,95 @@
         x     #=> 2
         ~~~
 
+        The comment on each line shows what the value of `x` is after the line has finished running.
+
+        ### Operational assignments
+
+        It's fairly common for an assignment to include the target in the value being assigned. For example, incrementing a variable by one might look somtehing like this:
+
+        ~~~myst
+        x = x + 1
+        ~~~
+
+        Especially with longer variable names, the repetition of the name creates unnecessary noise and often makes the assignment harder to understand at a glance.
+
+        To improve this, Myst provides _operational assignments_, which include the operation being performed as part of the assignment operator. The above example could be written as an operational assignment like this:
+
+        ~~~myst
+        x += 1
+        ~~~
+
+        The full semantics of operational assignments will be covered in the Basic Operations section.
+
+        ### Match assignments
+
+        Match assignments use the _match operator_ (`=:`). Match assignments are unique in that an assignment will not necessarily occur. Instead, the "assignment" is an expectation about the _value_ of the assignment, rather than the _target_.
+
+        The full semantics of match assignments will be covered later on in the Pattern Matching section.
+
 
         ## Interpolations
 
-        Use `<>` to interpolate the result of any expression into any other expression.
+        One of the truly unique features of Myst as a language is the ability to interpolate (or _inject_) any value into another other section of code. An interpolation is creating using angle braces (`<` and `>`) with some expression between them.
+
+        In the Maps section, we saw that Map keys are almost always Symbols, but that it's possible to use other values for keys as well. One way to do this is to use interpolations:
+
+        ~~~myst
+        {
+          <true>:       :true,
+          <"hello">:    :string,
+          <[1, 2, 3]>:  :list
+        }
+        ~~~
+
+        With this syntax, it's possible to use _any_ value as the key for a Map entry, even Lists or other Maps. But, as mentioned before, using keys other than Symbols will hinder performance.
+
+        Interpolations also allow operations within the interpolation for even more powerful behavior. For example, variables can be referenced within an interpolation, and calls to other functions can be made:
+
+        ~~~myst
+        x = 1
+        list = [1, 2, 3]
+        {
+          <x>: :one,
+          <list[2]> :three
+        }
+        ~~~
+
+        In fact, _any_ expression can be used inside of an interpolation, but will require additional parentheses to avoid ambiguity with the less-than and greater-than operations:
+
+        ~~~myst
+        x = 15
+        {
+          <(1 + 2)>: :three,
+          <(x / 3)>: :five
+        }
+        ~~~
+
+        All of the examples so far have shown interpolations used for creating keys in a Map. While interpolations are allowed anywhere in Myst code, they generally don't have any additional effects that make them useful. For example, these two lines are equivalent:
+
+        ~~~myst
+        x = <(1 + 2)>
+        x = 1 + 2
+        ~~~
+
+        Another common use for interpolations is inside of Strings. In addition to evaluating an expression in-place, String interpolations will also convert the result into a String representation before inserting it into the String:
+
+        ~~~myst
+        name = "John Smith"
+        "hello, <(name)>!" #=> "hello, John Smith!"
+        ~~~
+
+        Note that string interpolations _always_ require the additional parentheses around the expression being interpolated.
+
+        String interpolations are expanded by the language into separate components for the literal String parts and the expressions, then summed together to create the result. The exact expansion would look like this:
+
+        ~~~myst
+        # Given a string like this:
+        "1 + 2 = <(1 + 2)>!"
+        # The language would interpret it as:
+        "1 + 2 = " + (1 + 2).to_s + "!"
+        ~~~
+
+        This expansion is _semantically_ the same as what the language ends up doing, but would perform slower than the interpolated version since the language can make some optimizations when the values are interpolated.
+
+        The last main use case of interpolations is in pattern matching, which we'll see later on in the Pattern Matching section.
