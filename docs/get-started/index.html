@@ -56,6 +56,20 @@ Myst
 </div>
 </div>
 
+<p>In more complex code samples, or where it is otherwise helpful, you may see lines with <code>#</code> at the beginning of them. These are comments that have no impact on the code itself, but simply provide some context or description for the reader. For example:</p>
+
+<div class="language-myst highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span># Something describing the line below&#x000A;<span class="line-numbers"><a href="#n2" name="n2">2</a></span>some_line(of, code)</pre></div>
+</div>
+</div>
+
+<p>Most commonly, this is used to indicate alternatives. In these cases, the comment will normally say "Or", meaning that the code above coulde be used interchangeably with the code below the comment:</p>
+
+<div class="language-myst highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>1 + 2 + 3&#x000A;<span class="line-numbers"><a href="#n2" name="n2">2</a></span># Or&#x000A;<span class="line-numbers"><a href="#n3" name="n3">3</a></span>2 * 3</pre></div>
+</div>
+</div>
+
 <p>In a lot of cases, where a particular value is expected, you'll also see a <code>#=&gt;</code> followed by some text inside the code sample. This is meant to help indicate the expected behavior of the code. For example:</p>
 
 <div class="language-myst highlighter-coderay"><div class="CodeRay">

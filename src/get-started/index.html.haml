@@ -38,6 +38,21 @@
         IO.puts("Hello, world!")
         ~~~
 
+        In more complex code samples, or where it is otherwise helpful, you may see lines with `#` at the beginning of them. These are comments that have no impact on the code itself, but simply provide some context or description for the reader. For example:
+
+        ~~~myst
+        # Something describing the line below
+        some_line(of, code)
+        ~~~
+
+        Most commonly, this is used to indicate alternatives. In these cases, the comment will normally say "Or", meaning that the code above coulde be used interchangeably with the code below the comment:
+
+        ~~~myst
+        1 + 2 + 3
+        # Or
+        2 * 3
+        ~~~
+
         In a lot of cases, where a particular value is expected, you'll also see a `#=>` followed by some text inside the code sample. This is meant to help indicate the expected behavior of the code. For example:
 
         ~~~myst
