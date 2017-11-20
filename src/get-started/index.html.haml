@@ -62,6 +62,13 @@
         This sample shows that the expected result of `1 + 2` is `3`. Note that this style doesn't actually have any effect in the code (the `#` indicates that the rest of the line is a comment), and is simply a helpful tool, particularly for complex examples.
 
 
+        ## Reference notation
+
+        You may also see expressions like `List#push` or `IO.puts` in paragraphs or comments throughout this guid. This notation refers to a function that is contained within some type or module. These references all follow a consistent format, where a `#` between the module and the name indicates an _instance method_, while a `.` indicates a _static method_.
+
+        These concepts will be explained in more detail later on, but the basic premise is that _instance methods_ are called on an instance of a type (for example, `1` is an instance of the `Integer` type), while _static methods_ are called directly on the type itself.
+
+
         ## Asking Questions
 
         This guide isn't perfect, and makes some assumptions about prior knowledge that might not be accurate for everyone, but that's okay! Having questions and asking them is an important part of learning.
