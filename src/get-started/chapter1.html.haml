@@ -18,24 +18,194 @@
 
         # Chapter 1: Values and Variables
 
+        Myst is a strong, dynamically typed language. At a high level, "strong" means that every value has a specified type, and will retain that type unless explicitly told to change, and "dynamic" means that variables can hold any type of value at any time.
 
-        ## Values
+        The exact meanings of "strong" and "dynamic" aren't entirely universal - people have varying ideas on the minor details - and can get [surprisingly complex](https://en.wikipedia.org/wiki/Type_system#Type_checking) depending on how exact the definition is.
 
-        ### Primitives
+        However, as with many other concepts, Myst implements a more pragmatic approach. Later on, we'll see that Myst provides a few different ways to restrict the types that variables can accept. For now though, "strong" and "dynamic" are sufficient descriptions of Myst's type system.
 
-        Literal values: `nil`, `false`, `true`, `1`, `1.0`, `"hello"`, `:hi`.
+
+        ## Value Literals
+
+        Myst has a number of [literal representations](https://en.wikipedia.org/wiki/Literal_(computer_programming)) for values. These are the most basic way of creating new values in a program. Some examples of literals include:
+
+        ~~~myst
+        nil           # Nil (`null` in some languages)
+        false         # Boolean
+        true          # Boolean
+        1             # Integer
+        1.0           # Float
+        "hello"       # String
+        :hello        # Symbol
+        [1, 2, 3]     # List
+        {a: 1, b: 2}  # Map
+        ~~~
+
+        `nil`, `false`, and `true` are all _constant literals_. That is, they always refer to the same object, and the same keyword is always used to refer to them. All other literals are mutable, in the sense that the exact representation can vary.
+
+        ### Numerics
+
+        Numerics are values that represent numbers. Myst supports Integers and Floats as numeric values.
+
+        An Integer is any whole number, such as `2`, `100`, or `987654321`. Integer literals in Myst can also contain underscores to help separate groups of digits. This is particularly useful for large numbers. For example, compare these two representations of 1 billion:
+
+        ~~~myst
+        1000000000
+        1_000_000_000
+        ~~~
+
+        In the version with underscores, it's clear to see that there are 3 groups of `000`s, allowing someone reading the code to quickly see that the value is 1 billion.
+
+        Floats are real numbers that may contain decimal values, such as `1.0`, `2.345`, or `123.456789`. Notice that `1.0` is a whole number, and thus _technically_ an integer, but the representation as `1.0` indicates to Myst that the value is a Float. This relates to the strong typing mentioned above, where operations like division may behave differently based on the type of the operands.
+
+        As with Integers, underscores are allowed in Float literals, both before and after the decimal point:
+
+        ~~~myst
+        123_456.789_0123
+        ~~~
+
+        There is no restriction on how many underscores can be given in a literal, or that they have to form groups of 3. The following are all valid numeric literals, though they are generally avoided for consistency:
+
+        ~~~myst
+        1_
+        100_00
+        255_._255
+        1_2_3_4
+        9_____9
+        ~~~
+
+        ### Strings
+
+        A String is any series of zero or more characters contained between two double quote (`"`) characters. The following are all valid strings:
+
+        ~~~myst
+        "myst"
+        ""
+        "hello, world!"
+        "1 + 2 == 3"
+        ~~~
+
+        All whitespace within a string is preserved, meaning Strings can span multiple lines:
+
+        ~~~myst
+        "hello,
+        world"
+        ~~~
+
+        Alternatively, this could be condensed using an _escape sequence_ for the newline character:
+
+        ~~~myst
+        "hello,\nworld"
+        ~~~
+
+        Other escape sequences include tab characters (`\t`), null terminators (`\0`), and a double quote within the string (`\"`). If a String needs to contain the `\` character itself, it must also be escaped to avoid ambiguity:
+
+        ~~~myst
+        "hi \o"  #=> The `\` will escape the `o`.
+        "hi \\o" #=> The String will contain a `\` character.
+        ~~~
+
+        ### Symbols
+
+        Symbols are similar to Strings, but with a different representation within the language that we'll cover soon.
+
+        A Symbol literal is a _name_ or _identifier_ prefixed with a colon. The following would all be interpreted as Symbols in Myst:
+
+        ~~~myst
+        :hello
+        :two_words
+        :true
+        :false
+        :nil
+        :__with_some_underscores___
+        :numbers123
+        ~~~
+
+        Additionally, Symbols can be created from a String literal the same way. This is useful for creating symbols with spaces in the name or with other special characters:
+
+        ~~~myst
+        :" "
+        :"hello, world"
+        :"+"
+        :" /afs% 1234"
+        ~~~
+
+        Now, the way that Symbols are different than Strings is how they are stored within the language. Each Symbol is represented as an Integer. More importantly, every Symbol with the same name is represented by the _same_ Integer. So, a Symbol, `:name`, may be represented by the Integer `153`, then another Symbol, `:name`, would also be represented by `153`.
+
+        This makes comparisons with Symbols extremely efficient (just comparing two integers, rather than each character in the name), which makes them great for cases where the name of the Symbol isn't necessarily important, but performance matters (such as Maps, as seen below).
+
 
         ### Collections
 
-        `[1, 2, 3]`, `{a: 1, b: 2}`.
+        Apart from the individual literal types, Myst also has literal representations of two collection types: Lists and Maps. These are very common in Myst code, so it's important that they be easily and clearly represented.
 
-        ### User-defined types
+        A List is an ordered collection of values. Any combination of values can be added to a List. List literals are surrounded by square braces (`[` and `]`), with each entry separated by a comma (and optionally some whitespace). All of the following are valid List literals:
 
-        Covered later.
+        ~~~myst
+        []
+        [1]
+        [1, 2, 3]
+        [nil, 1.0, "hello"]
+        [
+          1, 2,
+          true, false,
+          "hi", :hello
+        ]
+        ~~~
+
+        Lists can also be nested within each other to create more complex structures:
+
+        ~~~myst
+        [
+          [true, 0],
+          [false, 1, 2],
+          [
+            ["hi", []],
+            [:hello, nil]
+          ]
+        ]
+        ~~~
+
+        We'll see some more ways that Lists are useful in Myst later on.
+
+        A Map, on the other hand, is a collection of key-value pairs. In Myst, the order of the entries is also preserved. By default, all Map keys will be Symbols, but the value can be of any type.
+
+        A Map literal is created using curly braces (`{` and `}`), with comma-separated entries, similar to Lists. Each _entry_ of a Map is written as a key name followed by a colon, followed by the value for that key. All of the following are valid Map literals:
+
+        ~~~myst
+        {}
+        {a: 1}
+        {a: 1, b: 2}
+        {true: true, false: false}
+        {
+          number1: {a: 1, b: 2},
+          __thing: {
+            string: "hi",
+            symbol: :hi
+          }
+        }
+        ~~~
+
+        Notice that the Symbol keys do not _start_ with a colon, because the colon is instead placed _after_ the name.
+
+        Generally, Maps do _not_ put a space between the braces and the entries of the Map, but _does_ include a space between each entry. This is to avoid ambiguities with other braced constructs that we'll see later on.
+
+        It's possible to use other types of values as keys for Maps, which we'll see later on, but the preference is to always use Symbols. Earlier, we saw how Symbols can be compared efficiently as Integers, which makes their use as Map keys very effective. Using other types will generally slow down performance.
+
+        A final note on collections: nesting is not limited to the same type. It's just as easy to create Lists of Maps or Maps of Lists. For example:
+
+        ~~~myst
+        [
+          {a: 1, b: 2},
+          {a: 3, b: 4}
+        ]
+        ~~~
 
 
 
         ## Variables
+
+        IGNORE THIS STUFF :)
 
         Variables store values. Any value can be assigned to any variable at any time.
 
@@ -63,3 +233,8 @@
         x = 2 #=> 2
         x     #=> 2
         ~~~
+
+
+        ## Interpolations
+
+        Use `<>` to interpolate the result of any expression into any other expression.

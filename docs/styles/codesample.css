@@ -12,13 +12,24 @@
   margin: 0;
 }
 
+/* Inline code fragments */
+code {
+  font-size: 0.85em;
+  line-height: 1.2em;
+  background: rgba(0,0,0,0.04);
+  display: inline-block;
+  padding: 2px 4px;
+  margin: 0 2px;
+  border-radius: 4px;
+}
+
 
 [class*=language-] {
   background: rgba(0,0,0,0.04);
   padding: 6px 24px;
 }
 
-.CodeRay .line-numbers {
+div.code .line-numbers {
   margin-right: 24px;
 }
 

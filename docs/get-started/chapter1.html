@@ -37,21 +37,149 @@ Myst
 
 <h1>Chapter 1: Values and Variables</h1>
 
-<h2>Values</h2>
+<p>Myst is a strong, dynamically typed language. At a high level, "strong" means that every value has a specified type, and will retain that type unless explicitly told to change, and "dynamic" means that variables can hold any type of value at any time.</p>
 
-<h3>Primitives</h3>
+<p>The exact meanings of "strong" and "dynamic" aren't entirely universal - people have varying ideas on the minor details - and can get <a href="https://en.wikipedia.org/wiki/Type_system#Type_checking">surprisingly complex</a> depending on how exact the definition is.</p>
 
-<p>Literal values: <code>nil</code>, <code>false</code>, <code>true</code>, <code>1</code>, <code>1.0</code>, <code>"hello"</code>, <code>:hi</code>.</p>
+<p>However, as with many other concepts, Myst implements a more pragmatic approach. Later on, we'll see that Myst provides a few different ways to restrict the types that variables can accept. For now though, "strong" and "dynamic" are sufficient descriptions of Myst's type system.</p>
+
+<h2>Value Literals</h2>
+
+<p>Myst has a number of <a href="https://en.wikipedia.org/wiki/Literal_(computer_programming)">literal representations</a> for values. These are the most basic way of creating new values in a program. Some examples of literals include:</p>
+
+<div class="language-myst highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span>nil           # Nil (`null` in some languages)&#x000A;<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>false         # Boolean&#x000A;<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>true          # Boolean&#x000A;<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>1             # Integer&#x000A;<span class="line-numbers"> <strong><a href="#n5" name="n5">5</a></strong></span>1.0           # Float&#x000A;<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>&quot;hello&quot;       # String&#x000A;<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>:hello        # Symbol&#x000A;<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>[1, 2, 3]     # List&#x000A;<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>{a: 1, b: 2}  # Map</pre></div>
+</div>
+</div>
+
+<p><code>nil</code>, <code>false</code>, and <code>true</code> are all <em>constant literals</em>. That is, they always refer to the same object, and the same keyword is always used to refer to them. All other literals are mutable, in the sense that the exact representation can vary.</p>
+
+<h3>Numerics</h3>
+
+<p>Numerics are values that represent numbers. Myst supports Integers and Floats as numeric values.</p>
+
+<p>An Integer is any whole number, such as <code>2</code>, <code>100</code>, or <code>987654321</code>. Integer literals in Myst can also contain underscores to help separate groups of digits. This is particularly useful for large numbers. For example, compare these two representations of 1 billion:</p>
+
+<div class="language-myst highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>1000000000&#x000A;<span class="line-numbers"><a href="#n2" name="n2">2</a></span>1_000_000_000</pre></div>
+</div>
+</div>
+
+<p>In the version with underscores, it's clear to see that there are 3 groups of <code>000</code>s, allowing someone reading the code to quickly see that the value is 1 billion.</p>
+
+<p>Floats are real numbers that may contain decimal values, such as <code>1.0</code>, <code>2.345</code>, or <code>123.456789</code>. Notice that <code>1.0</code> is a whole number, and thus <em>technically</em> an integer, but the representation as <code>1.0</code> indicates to Myst that the value is a Float. This relates to the strong typing mentioned above, where operations like division may behave differently based on the type of the operands.</p>
+
+<p>As with Integers, underscores are allowed in Float literals, both before and after the decimal point:</p>
+
+<div class="language-myst highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>123_456.789_0123</pre></div>
+</div>
+</div>
+
+<p>There is no restriction on how many underscores can be given in a literal, or that they have to form groups of 3. The following are all valid numeric literals, though they are generally avoided for consistency:</p>
+
+<div class="language-myst highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>1_&#x000A;<span class="line-numbers"><a href="#n2" name="n2">2</a></span>100_00&#x000A;<span class="line-numbers"><a href="#n3" name="n3">3</a></span>255_._255&#x000A;<span class="line-numbers"><a href="#n4" name="n4">4</a></span>1_2_3_4&#x000A;<span class="line-numbers"><strong><a href="#n5" name="n5">5</a></strong></span>9_____9</pre></div>
+</div>
+</div>
+
+<h3>Strings</h3>
+
+<p>A String is any series of zero or more characters contained between two double quote (<code>"</code>) characters. The following are all valid strings:</p>
+
+<div class="language-myst highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>&quot;myst&quot;&#x000A;<span class="line-numbers"><a href="#n2" name="n2">2</a></span>&quot;&quot;&#x000A;<span class="line-numbers"><a href="#n3" name="n3">3</a></span>&quot;hello, world!&quot;&#x000A;<span class="line-numbers"><a href="#n4" name="n4">4</a></span>&quot;1 + 2 == 3&quot;</pre></div>
+</div>
+</div>
+
+<p>All whitespace within a string is preserved, meaning Strings can span multiple lines:</p>
+
+<div class="language-myst highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>&quot;hello,&#x000A;<span class="line-numbers"><a href="#n2" name="n2">2</a></span>world&quot;</pre></div>
+</div>
+</div>
+
+<p>Alternatively, this could be condensed using an <em>escape sequence</em> for the newline character:</p>
+
+<div class="language-myst highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>&quot;hello,\nworld&quot;</pre></div>
+</div>
+</div>
+
+<p>Other escape sequences include tab characters (<code>\t</code>), null terminators (<code>\0</code>), and a double quote within the string (<code>\"</code>). If a String needs to contain the <code>\</code> character itself, it must also be escaped to avoid ambiguity:</p>
+
+<div class="language-myst highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>&quot;hi \o&quot;  #=&gt; The `\` will escape the `o`.&#x000A;<span class="line-numbers"><a href="#n2" name="n2">2</a></span>&quot;hi \\o&quot; #=&gt; The String will contain a `\` character.</pre></div>
+</div>
+</div>
+
+<h3>Symbols</h3>
+
+<p>Symbols are similar to Strings, but with a different representation within the language that we'll cover soon.</p>
+
+<p>A Symbol literal is a <em>name</em> or <em>identifier</em> prefixed with a colon. The following would all be interpreted as Symbols in Myst:</p>
+
+<div class="language-myst highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>:hello&#x000A;<span class="line-numbers"><a href="#n2" name="n2">2</a></span>:two_words&#x000A;<span class="line-numbers"><a href="#n3" name="n3">3</a></span>:true&#x000A;<span class="line-numbers"><a href="#n4" name="n4">4</a></span>:false&#x000A;<span class="line-numbers"><strong><a href="#n5" name="n5">5</a></strong></span>:nil&#x000A;<span class="line-numbers"><a href="#n6" name="n6">6</a></span>:__with_some_underscores___&#x000A;<span class="line-numbers"><a href="#n7" name="n7">7</a></span>:numbers123</pre></div>
+</div>
+</div>
+
+<p>Additionally, Symbols can be created from a String literal the same way. This is useful for creating symbols with spaces in the name or with other special characters:</p>
+
+<div class="language-myst highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>:&quot; &quot;&#x000A;<span class="line-numbers"><a href="#n2" name="n2">2</a></span>:&quot;hello, world&quot;&#x000A;<span class="line-numbers"><a href="#n3" name="n3">3</a></span>:&quot;+&quot;&#x000A;<span class="line-numbers"><a href="#n4" name="n4">4</a></span>:&quot; /afs% 1234&quot;</pre></div>
+</div>
+</div>
+
+<p>Now, the way that Symbols are different than Strings is how they are stored within the language. Each Symbol is represented as an Integer. More importantly, every Symbol with the same name is represented by the <em>same</em> Integer. So, a Symbol, <code>:name</code>, may be represented by the Integer <code>153</code>, then another Symbol, <code>:name</code>, would also be represented by <code>153</code>.</p>
+
+<p>This makes comparisons with Symbols extremely efficient (just comparing two integers, rather than each character in the name), which makes them great for cases where the name of the Symbol isn't necessarily important, but performance matters (such as Maps, as seen below).</p>
 
 <h3>Collections</h3>
 
-<p><code>[1, 2, 3]</code>, <code>{a: 1, b: 2}</code>.</p>
+<p>Apart from the individual literal types, Myst also has literal representations of two collection types: Lists and Maps. These are very common in Myst code, so it's important that they be easily and clearly represented.</p>
 
-<h3>User-defined types</h3>
+<p>A List is an ordered collection of values. Any combination of values can be added to a List. List literals are surrounded by square braces (<code>[</code> and <code>]</code>), with each entry separated by a comma (and optionally some whitespace). All of the following are valid List literals:</p>
 
-<p>Covered later.</p>
+<div class="language-myst highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span>[]&#x000A;<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>[1]&#x000A;<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>[1, 2, 3]&#x000A;<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>[nil, 1.0, &quot;hello&quot;]&#x000A;<span class="line-numbers"> <strong><a href="#n5" name="n5">5</a></strong></span>[&#x000A;<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>  1, 2,&#x000A;<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>  true, false,&#x000A;<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>  &quot;hi&quot;, :hello&#x000A;<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>]</pre></div>
+</div>
+</div>
+
+<p>Lists can also be nested within each other to create more complex structures:</p>
+
+<div class="language-myst highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>[&#x000A;<span class="line-numbers"><a href="#n2" name="n2">2</a></span>  [true, 0],&#x000A;<span class="line-numbers"><a href="#n3" name="n3">3</a></span>  [false, 1, 2],&#x000A;<span class="line-numbers"><a href="#n4" name="n4">4</a></span>  [&#x000A;<span class="line-numbers"><strong><a href="#n5" name="n5">5</a></strong></span>    [&quot;hi&quot;, []],&#x000A;<span class="line-numbers"><a href="#n6" name="n6">6</a></span>    [:hello, nil]&#x000A;<span class="line-numbers"><a href="#n7" name="n7">7</a></span>  ]&#x000A;<span class="line-numbers"><a href="#n8" name="n8">8</a></span>]</pre></div>
+</div>
+</div>
+
+<p>We'll see some more ways that Lists are useful in Myst later on.</p>
+
+<p>A Map, on the other hand, is a collection of key-value pairs. In Myst, the order of the entries is also preserved. By default, all Map keys will be Symbols, but the value can be of any type.</p>
+
+<p>A Map literal is created using curly braces (<code>{</code> and <code>}</code>), with comma-separated entries, similar to Lists. Each <em>entry</em> of a Map is written as a key name followed by a colon, followed by the value for that key. All of the following are valid Map literals:</p>
+
+<div class="language-myst highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span>{}&#x000A;<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>{a: 1}&#x000A;<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>{a: 1, b: 2}&#x000A;<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>{true: true, false: false}&#x000A;<span class="line-numbers"> <strong><a href="#n5" name="n5">5</a></strong></span>{&#x000A;<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>  number1: {a: 1, b: 2},&#x000A;<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>  __thing: {&#x000A;<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>    string: &quot;hi&quot;,&#x000A;<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>    symbol: :hi&#x000A;<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>  }&#x000A;<span class="line-numbers"><a href="#n11" name="n11">11</a></span>}</pre></div>
+</div>
+</div>
+
+<p>Notice that the Symbol keys do not <em>start</em> with a colon, because the colon is instead placed <em>after</em> the name.</p>
+
+<p>Generally, Maps do <em>not</em> put a space between the braces and the entries of the Map, but <em>does</em> include a space between each entry. This is to avoid ambiguities with other braced constructs that we'll see later on.</p>
+
+<p>It's possible to use other types of values as keys for Maps, which we'll see later on, but the preference is to always use Symbols. Earlier, we saw how Symbols can be compared efficiently as Integers, which makes their use as Map keys very effective. Using other types will generally slow down performance.</p>
+
+<p>A final note on collections: nesting is not limited to the same type. It's just as easy to create Lists of Maps or Maps of Lists. For example:</p>
+
+<div class="language-myst highlighter-coderay"><div class="CodeRay">
+  <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>[&#x000A;<span class="line-numbers"><a href="#n2" name="n2">2</a></span>  {a: 1, b: 2},&#x000A;<span class="line-numbers"><a href="#n3" name="n3">3</a></span>  {a: 3, b: 4}&#x000A;<span class="line-numbers"><a href="#n4" name="n4">4</a></span>]</pre></div>
+</div>
+</div>
 
 <h2>Variables</h2>
+
+<p>IGNORE THIS STUFF :)</p>
 
 <p>Variables store values. Any value can be assigned to any variable at any time.</p>
 
@@ -75,6 +203,10 @@ Myst
   <div class="code"><pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span>x = 1 #=&gt; 1&#x000A;<span class="line-numbers"><a href="#n2" name="n2">2</a></span>x     #=&gt; 1&#x000A;<span class="line-numbers"><a href="#n3" name="n3">3</a></span>x = 2 #=&gt; 2&#x000A;<span class="line-numbers"><a href="#n4" name="n4">4</a></span>x     #=&gt; 2</pre></div>
 </div>
 </div>
+
+<h2>Interpolations</h2>
+
+<p>Use <code>&lt;&gt;</code> to interpolate the result of any expression into any other expression.</p>
 </main>
 </body>
 </html>
