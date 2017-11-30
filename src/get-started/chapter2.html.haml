@@ -226,6 +226,9 @@
 
         Operational assignment works for every _binary_ operation shown in this chapter. However, the logical operators (`||` and `&&`) have special behavior when written as operational assignments.
 
+
+        ### Or-assignment
+
         `||=`, referred to as "or-assignment" loosely expands from `a ||= b` to `a || a = b`, rather than the normal `a = a || b`. This is a "loose" expansion, because `a` does not have to exist before the assignment is written.
 
         The expression `a ||= b` will always assign `b` into `a`, so long as the `a` is _not_ a truthy value. If `a` does not yet exist, it is considered falsey by the assignment and created as a new variable with the value of `b`.
@@ -245,6 +248,9 @@
         ~~~
 
         A consequence of how `||=` works means that the target is guaranteed to exist after the assignment, making it useful for ensuring default values for variables that may not exist beforehand.
+
+
+        ### And-assignment
 
         `&&=` ("and-assignemnt") acts exactly like `||=`, but with an `&&` operation instead. In this case, the left side must be truthy for the assignment to occur.
 

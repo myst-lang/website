@@ -212,6 +212,8 @@ Myst
 
 <p>Operational assignment works for every <em>binary</em> operation shown in this chapter. However, the logical operators (<code>||</code> and <code>&amp;&amp;</code>) have special behavior when written as operational assignments.</p>
 
+<h3>Or-assignment</h3>
+
 <p><code>||=</code>, referred to as "or-assignment" loosely expands from <code>a ||= b</code> to <code>a || a = b</code>, rather than the normal <code>a = a || b</code>. This is a "loose" expansion, because <code>a</code> does not have to exist before the assignment is written.</p>
 
 <p>The expression <code>a ||= b</code> will always assign <code>b</code> into <code>a</code>, so long as the <code>a</code> is <em>not</em> a truthy value. If <code>a</code> does not yet exist, it is considered falsey by the assignment and created as a new variable with the value of <code>b</code>.</p>
@@ -224,6 +226,8 @@ Myst
 </div>
 
 <p>A consequence of how <code>||=</code> works means that the target is guaranteed to exist after the assignment, making it useful for ensuring default values for variables that may not exist beforehand.</p>
+
+<h3>And-assignment</h3>
 
 <p><code>&amp;&amp;=</code> ("and-assignemnt") acts exactly like <code>||=</code>, but with an <code>&amp;&amp;</code> operation instead. In this case, the left side must be truthy for the assignment to occur.</p>
 
