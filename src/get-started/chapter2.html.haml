@@ -273,6 +273,6 @@
         z &&= 1
         ~~~
 
-        Here, we're trying to say that if `a` does not exist, create it with a `nil` value, then do the and-assignment. But, as you may have picked up, this actually won't always work, because if `z` exists beforehand but is falsey, the or-assignment will occur, potentially changing the value of `z` (if it was `false`, it would become `nil`).
+        Here, we're trying to say that if `z` does not exist, create it with a `nil` value, then do the and-assignment. But, as you may have picked up, this actually won't always work, because if `z` exists beforehand but is falsey, the or-assignment will occur, potentially changing the value of `z` (if it was `false`, it would become `nil`).
 
         To avoid this extra line that is still not guaranteed to work, Myst defaults the target variable to `nil`, which will ensure that the assignment does not occur (since a non-existent value is considered falsey), but will also ensure that the target variable is assigned after the operation is completed (matching the semantics of `||=`).

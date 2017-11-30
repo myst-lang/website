@@ -245,7 +245,7 @@ Myst
 </div>
 </div>
 
-<p>Here, we're trying to say that if <code>a</code> does not exist, create it with a <code>nil</code> value, then do the and-assignment. But, as you may have picked up, this actually won't always work, because if <code>z</code> exists beforehand but is falsey, the or-assignment will occur, potentially changing the value of <code>z</code> (if it was <code>false</code>, it would become <code>nil</code>).</p>
+<p>Here, we're trying to say that if <code>z</code> does not exist, create it with a <code>nil</code> value, then do the and-assignment. But, as you may have picked up, this actually won't always work, because if <code>z</code> exists beforehand but is falsey, the or-assignment will occur, potentially changing the value of <code>z</code> (if it was <code>false</code>, it would become <code>nil</code>).</p>
 
 <p>To avoid this extra line that is still not guaranteed to work, Myst defaults the target variable to <code>nil</code>, which will ensure that the assignment does not occur (since a non-existent value is considered falsey), but will also ensure that the target variable is assigned after the operation is completed (matching the semantics of <code>||=</code>).</p>
 </main>
