@@ -144,15 +144,15 @@
         fn
           ->() { :no_arguments }
           ->(n : Integer) { :int_argument }
-          ->(_) {
+          ->(_) do
             a = 1
             b = 2
             a + b
-          }
+          end
         end
         ~~~
 
-        Here, each `->` indicates a new function clause, followed by the parameters for that clause given within the parentheses, just like normal functions. Finally, the body for the clause is given within curly braces. The body can be given inline or over multiple lines.
+        Here, each `->` indicates a new function clause, followed by the parameters for that clause given within the parentheses, just like normal functions. Finally, the body for the clause is given just like a block, either as a brace-block or within a `do...end`. The body can be given inline or over multiple lines.
 
         Anonymous functions can also be written on one line, but this is generally not recommended (use a block instead):
 

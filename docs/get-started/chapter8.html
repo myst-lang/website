@@ -137,11 +137,11 @@ Myst
 <p>Anonymous functions are defined using a special block structure using the <code>fn</code> keyword and <em>stabs</em> (<code>-&gt;</code>) to define clauses. Here's a simple example:</p>
 
 <div class="language-myst highlighter-coderay"><div class="CodeRay">
-  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span>fn&#x000A;<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>  -&gt;() { :no_arguments }&#x000A;<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>  -&gt;(n : Integer) { :int_argument }&#x000A;<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>  -&gt;(_) {&#x000A;<span class="line-numbers"> <strong><a href="#n5" name="n5">5</a></strong></span>    a = 1&#x000A;<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>    b = 2&#x000A;<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>    a + b&#x000A;<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>  }&#x000A;<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>end</pre></div>
+  <div class="code"><pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span>fn&#x000A;<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>  -&gt;() { :no_arguments }&#x000A;<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>  -&gt;(n : Integer) { :int_argument }&#x000A;<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>  -&gt;(_) do&#x000A;<span class="line-numbers"> <strong><a href="#n5" name="n5">5</a></strong></span>    a = 1&#x000A;<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>    b = 2&#x000A;<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>    a + b&#x000A;<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>  end&#x000A;<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>end</pre></div>
 </div>
 </div>
 
-<p>Here, each <code>-&gt;</code> indicates a new function clause, followed by the parameters for that clause given within the parentheses, just like normal functions. Finally, the body for the clause is given within curly braces. The body can be given inline or over multiple lines.</p>
+<p>Here, each <code>-&gt;</code> indicates a new function clause, followed by the parameters for that clause given within the parentheses, just like normal functions. Finally, the body for the clause is given just like a block, either as a brace-block or within a <code>do...end</code>. The body can be given inline or over multiple lines.</p>
 
 <p>Anonymous functions can also be written on one line, but this is generally not recommended (use a block instead):</p>
 
