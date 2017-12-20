@@ -111,7 +111,7 @@ Myst
 </div>
 </div>
 
-<p>So here's an interesting caveat. We clearly hit the <code>ensure</code> clause, because <code>@did_ensure</code> got set to true. But, the return value of <code>foo</code> was <code>:returned</code>. Why? Because <code>ensure</code> <em>cannot</em> affect the return value of a function.</p>
+<p>So here's an interesting caveat. We clearly hit the <code>ensure</code> clause, because <code>@did_ensure</code> got set to true. But, the return value of <code>foo</code> was <code>:rescued</code>. Why? Because <code>ensure</code> <em>cannot</em> affect the return value of a function.</p>
 
 <p>More than anything, this is for logical simplicity when dealing with no errors. Here's an even simpler example:</p>
 

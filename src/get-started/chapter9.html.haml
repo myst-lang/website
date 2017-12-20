@@ -148,7 +148,7 @@
         @did_ensure #=> true
         ~~~
 
-        So here's an interesting caveat. We clearly hit the `ensure` clause, because `@did_ensure` got set to true. But, the return value of `foo` was `:returned`. Why? Because `ensure` _cannot_ affect the return value of a function.
+        So here's an interesting caveat. We clearly hit the `ensure` clause, because `@did_ensure` got set to true. But, the return value of `foo` was `:rescued`. Why? Because `ensure` _cannot_ affect the return value of a function.
 
         More than anything, this is for logical simplicity when dealing with no errors. Here's an even simpler example:
 
