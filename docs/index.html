@@ -12,11 +12,10 @@
 <div class='banner'>
 <div class='banner__content'>
 <div class='banner__topbar'>
-<h1 class='banner__title'>Myst</h1>
-<ul class='banner__nav'>
-<a class='banner__link' href='#'>
-<li>Docs</li>
+<a class='banner__title' href='/'>
+Myst
 </a>
+<ul class='banner__nav'>
 <a class='banner__link' href='/get-started'>
 <li>Get Started</li>
 </a>
@@ -36,12 +35,36 @@ A language for clarity from the start, flexibility when you need it, and efficie
 <pre class='code-sample code-sample--no-margin'><code>def fib(0); 1; end&#x000A;def fib(1); 1; end&#x000A;def fib(n : Integer)&#x000A;  fib(n-1) + fib(n-2)&#x000A;end&#x000A;&#x000A;IO.puts(fib(8)) #=> 21&#x000A;</code></pre>
 </div>
 </div>
+
 </div>
 </div>
 <main>
-<p>Myst is a programming language designed with clarity in mind. Rather than focusing on a single paradigm and seeing it through, Myst takes a more pragmatic approach.</p>
-<p>With heavy influences from both Ruby and Elixir, Myst combines proven concepts like pattern matching and modular composition with some novel ideas, including global interpolation and fully optional typing. The result is a language that caters to natural thought and logic.</p>
-<p>Myst is still very early on in its development. While the syntax is starting to stabilize, there's still plenty of room for improvement, and even more openness to new ideas.</p>
+<p>Myst is a new programming language with the goal of bridging flexibility and practicality. By directly addressing common traps in modern dynamic programming, Myst provides users the ability to work quickly and easily with the power to write controlled, highly-structured code.</p>
+<p>With heavy influences from Ruby, Elixir, Crystal, and other modern languages, Myst combines proven concepts like pattern matching and modular composition with some novel ideas, including global interpolation and fully optional typing. The result is a language that caters to natural thought and logic.</p>
+<p>Some of the high-level features of Myst include:</p>
+<ul>
+<li>
+<strong>Pattern-matching everywhere.</strong>
+Assignments, method parameters, rescue clauses, etc.
+</li>
+<li>
+<strong>Multi-clause functions.</strong>
+All functions can define multiple clauses to adapt functionality based on inputs.
+</li>
+<li>
+<strong>Value interpolations.</strong>
+Interpolate any value anywhere (even in method parameters) with the <code><></code> syntax.
+</li>
+<li>
+<strong>Soft typing.</strong>
+Optional type annotations help control functionality without the clutter of conditionals.
+</li>
+<li>
+<strong>Raise anything.</strong>
+Any value can be raised as an exception and pattern matched by a rescue clause.
+</li>
+</ul>
+<p>Myst is still very early on in its development. While the syntax stabilizing, there's still plenty of room for improvement, and even more openness to new ideas.</p>
 <p>
 If you'd like to help shape the language, be an early adopter, or just follow along as things develop, it'd be great to see you in
 <a href='http://discord.myst-lang.org'>our discord server</a>
