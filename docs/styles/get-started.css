@@ -1,0 +1,40 @@
+.get-started__container {
+  width: 1000px;
+  margin: auto;
+  display: flex;
+  align-items: flex-start;
+}
+
+
+.get-started__content {
+  flex: 0 0 660px;
+  width: 660px;
+  background: rgba(219, 222, 216, 1);
+  padding: 12px 0;
+  float: left;
+  margin: 0;
+  margin-right: 20px;
+  margin-bottom: 24px;
+  border: 1px solid rgba(191, 196, 186, 0.7);
+  border-radius: 4px;
+}
+
+
+.get-started__sidebar {
+  flex: 1 0 auto;
+  background: rgba(219, 222, 216, 1);
+  width: 220px;
+  padding: 12px 0;
+  margin-bottom: 24px;
+  border: 1px solid rgba(191, 196, 186, 0.7);
+  border-radius: 4px;
+}
+
+.get-started__nav-item {
+  display: block;
+  padding: 0 24px 12px 24px;
+}
+
+.get-started__nav-item a {
+  display: inline;
+}

@@ -22,7 +22,7 @@ body {
 
 main {
   background: rgba(219, 222, 216, 1);
-  width: 940px;
+  width: 1000px;
   padding: 12px 0;
   margin: auto;
   margin-bottom: 24px;
@@ -30,17 +30,17 @@ main {
   border-radius: 4px;
 }
 
-main h1,
-main h2,
-main h3,
-main h4,
-main h5,
-main h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   padding: 0 24px;
   color: #52656b;
 }
 
-main p {
+p {
   padding: 0 24px;
   color: #647b82;
 }
