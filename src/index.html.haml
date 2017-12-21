@@ -20,13 +20,16 @@
             %pre.code-sample.code-sample--no-margin
               %code
                 :preserve
-                  def fib(0); 1; end
-                  def fib(1); 1; end
-                  def fib(n : Integer)
-                    fib(n-1) + fib(n-2)
+                  deftype List
+                    def contains(element)
+                      each(&fn
+                        ->(&lt;element&gt;) { break true }
+                        ->(_)         { false }
+                      end)
+                    end
                   end
 
-                  IO.puts(fib(8)) #=> 21
+                  [1, 2, 3].contains(2) #=> true
 
     %main
       %p Myst is a new programming language with the goal of bridging flexibility and practicality. By directly addressing common traps in modern dynamic programming, Myst provides users the ability to work quickly and easily with the power to write controlled, highly-structured code.

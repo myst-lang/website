@@ -32,7 +32,7 @@ Myst
 A language for clarity from the start, flexibility when you need it, and efficiency where it matters.
 </div>
 <div class='banner__code-sample'>
-<pre class='code-sample code-sample--no-margin'><code>def fib(0); 1; end&#x000A;def fib(1); 1; end&#x000A;def fib(n : Integer)&#x000A;  fib(n-1) + fib(n-2)&#x000A;end&#x000A;&#x000A;IO.puts(fib(8)) #=> 21&#x000A;</code></pre>
+<pre class='code-sample code-sample--no-margin'><code>deftype List&#x000A;  def contains(element)&#x000A;    each(&fn&#x000A;      ->(&lt;element&gt;) { break true }&#x000A;      ->(_)         { false }&#x000A;    end)&#x000A;  end&#x000A;end&#x000A;&#x000A;[1, 2, 3].contains(2) #=> true&#x000A;</code></pre>
 </div>
 </div>
 
