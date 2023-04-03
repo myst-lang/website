@@ -1,5 +1,7 @@
 # Myst Language Website
 
+**UNMAINTAINED:** After more than 5 years sitting stagnant, Myst is definitively dormant and the website/domain has not been renewed. Thanks for your interest over the years.
+
 This repository contains the source for the Myst programming language home page, (soon to be) available at https://myst-lang.org.
 
 
